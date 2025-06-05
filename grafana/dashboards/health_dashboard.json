@@ -1,0 +1,24 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "System Health Overview",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "CPU Usage",
+        "targets": [
+          {
+            "expr": "custom_cpu_usage",
+            "legendFormat": "CPU",
+            "refId": "A"
+          }
+        ],
+        "datasource": "Prometheus",
+        "id": 1
+      }
+    ],
+    "schemaVersion": 27,
+    "version": 0
+  },
+  "overwrite": true
+}
