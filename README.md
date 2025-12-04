@@ -126,6 +126,7 @@ custom-exporter
 prometheus
 
 📁 Project Structure
+```
 .
 ├── docker-compose.yml
 ├── grafana/
@@ -142,7 +143,7 @@ prometheus
 │   └── blackbox/
 │       └── blackbox.yml
 └── README.md
-
+```
 🔧 Prometheus Jobs Included
 java-app
 - job_name: 'java-app'
