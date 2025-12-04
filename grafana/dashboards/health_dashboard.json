@@ -1,24 +1,348 @@
 {
-  "dashboard": {
-    "id": null,
-    "title": "System Health Overview",
-    "panels": [
+  "annotations": {
+    "list": [
       {
-        "type": "graph",
-        "title": "CPU Usage",
-        "targets": [
-          {
-            "expr": "custom_cpu_usage",
-            "legendFormat": "CPU",
-            "refId": "A"
-          }
-        ],
-        "datasource": "Prometheus",
-        "id": 1
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
       }
-    ],
-    "schemaVersion": 27,
-    "version": 0
+    ]
   },
-  "overwrite": true
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 0,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ef621q9ccx14we"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "up\r\n\r\n",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "probe_success\r\n",
+          "instant": true,
+          "key": "Q-ce493319-a64a-4b02-9028-2ee0c9279b16-1",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "jvm_memory_used_bytes\r\n",
+          "hide": true,
+          "instant": true,
+          "key": "Q-5efc98aa-8c9c-4b4c-826e-4eac2126f26d-2",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "node_load1\r\n",
+          "hide": true,
+          "instant": true,
+          "key": "Q-777f9659-e7a7-48c1-ae3f-6007b93a65f7-3",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "custom_cpu_usage",
+          "hide": true,
+          "instant": true,
+          "key": "Q-12babf68-1cd0-4b65-92a5-2062d95dd68d-4",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "E"
+        }
+      ],
+      "title": "New Panel",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ef621q9ccx14we"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "up\r\n\r\n",
+          "hide": true,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "probe_success\r\n",
+          "instant": true,
+          "key": "Q-ce493319-a64a-4b02-9028-2ee0c9279b16-1",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "jvm_memory_used_bytes\r\n",
+          "instant": true,
+          "key": "Q-5efc98aa-8c9c-4b4c-826e-4eac2126f26d-2",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "node_load1\r\n",
+          "instant": true,
+          "key": "Q-777f9659-e7a7-48c1-ae3f-6007b93a65f7-3",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ef621q9ccx14we"
+          },
+          "editorMode": "code",
+          "expr": "custom_cpu_usage",
+          "instant": true,
+          "key": "Q-12babf68-1cd0-4b65-92a5-2062d95dd68d-4",
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "E"
+        }
+      ],
+      "title": "New Panel",
+      "type": "timeseries"
+    }
+  ],
+  "preload": false,
+  "refresh": "",
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "System health",
+  "uid": "285c1b43-12b6-4cd7-92d6-92ca47b3fc2c",
+  "version": 5
 }
