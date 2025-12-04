@@ -1,60 +1,209 @@
-# Prometheus-Grafana Healthcheck Monitoring
+# 📡 Prometheus + Grafana Observability Lab  
+### Spring Boot • Blackbox Exporter • Node Exporter • Custom Python Exporter
 
-This project provides a full setup for monitoring a Java application and system metrics using Prometheus and Grafana.
 
-## 🚀 Features
-- Java app metrics exposed via Micrometer + Spring Boot Actuator
-- Prometheus setup to scrape custom and system metrics
-- Sample custom Python exporter simulating CPU metrics
-- Alert rules for high CPU usage
-- Grafana dashboard with CPU visualization
-- Docker Compose setup for local deployment
+A complete, reproducible end-to-end observability stack using Docker Compose
 
-## 🧪 Stack
-- Java (Spring Boot + Micrometer)
-- Prometheus
-- Grafana
-- Python (custom exporter)
-- Docker Compose
+⭐ Overview
 
-## 🧰 Setup Instructions
+This project is a fully working observability lab that demonstrates how to monitor:
 
-### 1. Start Monitoring Stack
-```bash
-docker-compose up -d
+Application metrics (Spring Boot Actuator + Micrometer Prometheus registry)
+
+Infrastructure/system metrics (Node Exporter)
+
+Synthetic monitoring / uptime checks (Blackbox Exporter)
+
+Custom business logic metrics (Python-based exporter)
+
+Dashboards & visualization (Grafana)
+
+Time-series storage & scraping orchestration (Prometheus)
+
+Everything runs locally via Docker Compose and is configured to work together out-of-the-box.
+
+This stack is intentionally designed the way an SRE team would structure a production observability pipeline.
+```
+                     ┌────────────────────────────┐
+                     │           Grafana           │
+                     │  Dashboards & Visualization │
+                     └───────────────┬────────────┘
+                                     │
+                                     ▼
+                        ┌────────────────────────┐
+                        │       Prometheus       │
+                        │     Scrape + Storage   │
+                        └───────┬────────┬───────┘
+                                │        │
+               ┌────────────────┘        └─────────────────┐
+               ▼                                            ▼
+        ┌──────────────┐                           ┌────────────────┐
+        │   java-app    │  ← Spring Boot Actuator  │   blackbox      │ ← Synthetic checks
+        │ /actuator/*   │  ← Micrometer metrics    │   exporter      │
+        └──────────────┘                           └────────────────┘
+
+        ┌────────────────┐                        ┌─────────────────────┐
+        │ node-exporter  │ ← System metrics       │   custom_exporter    │ ← Python metrics
+        └────────────────┘                        └─────────────────────┘
+
 ```
 
-### 2. Access Services
-- Prometheus: [http://localhost:9090](http://localhost:9090)
-- Grafana: [http://localhost:3000](http://localhost:3000)
-  - Default credentials: `admin` / `admin`
+🚀 Features
+1. Java Spring Boot Application Metrics
 
-### 3. Import Dashboard
-Upload `grafana/dashboards/health_dashboard.json` into Grafana.
+/actuator/health
 
-## 📦 Endpoints
-- Java App: `localhost:8080/actuator/prometheus`
-- Custom Exporter: `localhost:8000/metrics`
+/actuator/prometheus
 
-## 📊 Alerts
-Alerts are defined in `alerts/alert_rules.yml` and loaded by Prometheus on startup.
+Tagged metrics using Micrometer
 
-## 📁 File Structure
-```
+Auto-discovered by Prometheus
+
+2. Synthetic Monitoring (Blackbox Exporter)
+
+Probes Java app health endpoint
+
+Measures uptime + latency
+
+Configurable modules (HTTP, TCP, DNS)
+
+3. Node Exporter
+
+CPU
+
+Memory
+
+Filesystem
+
+Load averages
+
+4. Custom Python Exporter
+
+A small example exporter showing how to expose custom Prometheus metrics for domain logic.
+
+5. Grafana Dashboards
+
+Grafana runs at:
+
+http://localhost:3000
+
+
+(Default credentials: admin / admin)
+
+🐳 Quick Start (Docker Compose)
+1. Clone the repository
+git clone https://github.com/ramkumar1308/prometheus-grafana-healthcheck-monitoring.git
+cd prometheus-grafana-healthcheck-monitoring
+
+2. Start the full stack
+docker compose up -d --build
+
+3. Access the components
+Service	URL
+Prometheus	http://localhost:9090
+
+Grafana	http://localhost:3000
+
+Spring Boot App	http://localhost:8080/actuator
+
+Node Exporter	http://localhost:9100/metrics
+
+Blackbox Exporter	http://localhost:9115/probe
+4. Verify targets in Prometheus
+
+Go to:
+Prometheus → Status → Targets
+All jobs should show UP:
+
+java-app
+
+node-exporter
+
+blackbox
+
+custom-exporter
+
+prometheus
+
+📁 Project Structure
 .
-├── alerts/
-├── exporters/
+├── docker-compose.yml
 ├── grafana/
-│   └── dashboards/
+│   └── (Grafana data storage)
 ├── java-app/
+│   ├── Dockerfile
+│   ├── pom.xml
+│   └── src/main/java/com/example/HealthCheckApplication.java
 ├── prometheus/
-└── docker-compose.yml
-```
+│   ├── prometheus.yml
+│   └── alert_rules.yml
+├── exporters/
+│   ├── custom_exporter.py
+│   └── blackbox/
+│       └── blackbox.yml
+└── README.md
 
-## 📌 Next Steps
-- Add email/Slack alert integrations
-- Expand Grafana dashboard for memory, disk, and service uptime
+🔧 Prometheus Jobs Included
+java-app
+- job_name: 'java-app'
+  metrics_path: /actuator/prometheus
+  static_configs:
+    - targets: ['java-app:8080']
 
----
+blackbox exporter
+- job_name: 'blackbox'
+  metrics_path: /probe
+  params:
+    module: [http_2xx]
+  static_configs:
+    - targets:
+        - http://java-app:8080/actuator/health
+  relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: blackbox-exporter:9115
 
-This setup is ideal for showcasing SRE monitoring expertise in interviews and real-world automation scenarios.
+node exporter
+- job_name: 'node-exporter'
+  static_configs:
+    - targets: ['node-exporter:9100']
+
+custom exporter
+- job_name: 'custom-exporter'
+  static_configs:
+    - targets: ['custom_exporter:8000']
+
+📊 Suggested Grafana Panels
+
+You can build dashboards using:
+
+Java App Health
+probe_success{job="blackbox"}
+
+Java App Latency
+probe_duration_seconds{job="blackbox"}
+
+JVM Memory (from Spring)
+jvm_memory_used_bytes
+
+Node CPU
+node_cpu_seconds_total
+
+Custom Python Metric
+my_custom_metric
+
+🧪 Testing the Java App Endpoints
+curl http://localhost:8080/actuator/health
+curl http://localhost:8080/actuator/prometheus
+
+🤝 Contributing
+
+This repository is meant as a learning and demonstration project.
+PRs, improvements, or new exporters are welcome.
+
+📜 License
+
+MIT License.
