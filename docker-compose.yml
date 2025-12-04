@@ -23,3 +23,31 @@ services:
     command: ["python", "custom_exporter.py"]
     ports:
       - "8000:8000"
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.25.0
+    container_name: blackbox-exporter
+    command:
+      - "--config.file=/config/blackbox.yml"
+    volumes:
+      - ./exporters/blackbox/blackbox.yml:/config/blackbox.yml:ro
+    ports:
+      - "9115:9115"
+    restart: unless-stopped
+
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+
+  java-app:
+    build:
+      context: ./java-app
+      dockerfile: Dockerfile
+    container_name: java-app
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
