@@ -1,5 +1,6 @@
-📡 Prometheus + Grafana Observability Lab
-Spring Boot • Blackbox Exporter • Node Exporter • Custom Python Exporter
+# 📡 Prometheus + Grafana Observability Lab  
+### Spring Boot • Blackbox Exporter • Node Exporter • Custom Python Exporter
+
 
 A complete, reproducible end-to-end observability stack using Docker Compose
 
